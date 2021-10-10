@@ -4,6 +4,9 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.net.*;
 import java.io.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +15,12 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 	// write your code here
+        List<Integer> testing = new ArrayList();
+        testing.add(5);
+        ArrayList<Integer> newList = new ArrayList();
+        newList.add(15);
+        Collections.sort(newList);
+
 
         FileWriter outFile = new FileWriter("testfile.json");
         String test = "";
@@ -46,6 +55,21 @@ public class Main {
         scanner = new Scanner (new FileReader ("output.json"));
         System.out.println(scanner.nextLine());
         scanner.close();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // JSON File to Java Object
+            Result info = mapper.readValue(new File("output.json"), Result.class);
+
+            // pretty print
+            String prettyStaff = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(info);
+
+            System.out.println(prettyStaff);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
